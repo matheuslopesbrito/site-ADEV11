@@ -1,0 +1,65 @@
+body {
+	margin: 0%;
+    background-color: #D8D8D8;
+}
+
+.header {
+    height: 105px;
+    width: max-content;
+}
+
+.navbar-img {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1.6s;
+}
+
+.button.navbar-button:hover {
+    background-color: blue;
+    color: red;
+    border: 2px solid black;
+}
+
+.button.navbar-button {
+    border: 0px;
+    border-radius: 10px;
+    font-size: 1rem;
+    justify-content: flex-start;
+    line-height: 1.5;
+    position: absolute;
+    vertical-align: top;
+}
+
+.button.navbar-button {
+    background-color: #DEF300;
+    height: 40px;
+	width: 87.625px;
+	border-top: 1px solid rgba(0, 0, 0, 0);
+	border-right: 1px solid rgba(0, 0, 0, 0);
+	border-bottom: 1px solid rgba(0, 0, 0, 0);
+	border-left: 1px solid rgba(0, 0, 0, 0);
+	margin: 0px 8px 8px 100px;
+	max-height: none;
+	min-height: auto;
+	max-width: none;
+	min-width: auto;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+}
+
+.container {
+    position: relative;
+    padding-top: 17.5px;
+}
+
+#img-1 {
+    height: auto;
+    width: 100%;
+    margin: auto;
+}

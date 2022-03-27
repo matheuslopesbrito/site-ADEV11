@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADEV11</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/css/fontello/css/animation.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="../src/index.js"></script>
+</head>
+<body>
+    <div>
+        <header class="header">
+            <nav class="navbar" height="200" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                  <a class="navbar-img" href="index.html">
+                    <img src="../img/logo_ADEV11.png" style="height: 100px;position: absolute;left: auto;top: 16px;">
+                  </a>
+                </div>
+              
+                <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-end">
+                    <a class="navbar-buttons" href="index.html" style="font-family: 'Open Sans', sans-serif;position: absolute;right: 33%;top: 40px;">
+                      <button class="button navbar-button">Home</button>
+                    </a>
+              
+                    <a class="navbar-buttons" href="contact.html" style="font-family: 'Anton', sans-serif;position: absolute;right: 25%;top: 40px;">
+                        <button class="button navbar-button">Contact</button>
+                    </a>
+                  </div>
+                </div>
+              </nav>
+        </header>
+    </div>
+    <div class="container" style="margin: 0%;">
+        <div class="animate-spin">
+            <img id="img-1" src="../img/bg.jpeg" alt="jpeg">
+        </div>
+        <div style="position: absolute;background-color: blue;">
+            <input type="button" value="Button Test">
+        </div>
+    </div>
+</body>
+</html>

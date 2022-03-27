@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>aaaa</title>
+</head>
+<body>
+if ( !function_exists( newlife_church_template_header_3_theme_setup ) ) {<br/>
+add_action( newlife_church_action_before_init_theme, newlife_church_template_header_3_theme_setup, 1 );<br/>
+function newlife_church_template_header_3_theme_setup() {<br/>
+newlife_church_add_template(array(<br/>
+layout = header_3,<br/>
+mode   = header,<br/>
+title  = esc_html__(Header 3, newlifechurch),<br/>
+icon   = newlife_church_get_file_url(templates/headers/images/3.jpg)<br/>
+));<br/>
+}<br/>
+}<br/>
+<br/>
+// Template output<br/>
+if ( !function_exists( newlife_church_template_header_3_output ) ) {<br/>
+function newlife_church_template_header_3_output($post_options, $post_data) {<br/>
+<br/>
+// WP custom header<br/>
+$header_css = ;<br/>
+if ($post_options[position] != over) {<br/>
+$header_image = get_header_image();<br/>
+$header_css = $header_image!= <br/>
+?  style=backgroundimage: url(.esc_url($header_image).) <br/>
+: ;<br/>
+}<br/>
+?<br/>
+<br/>
+div class=top_panel_fixed_wrap/div<br/>
+<br/>
+header class=top_panel_wrap top_panel_style_3 scheme_ echo esc_attr($post_options[scheme]); ?<br/>
+div class=top_panel_wrap_inner top_panel_inner_style_3 top_panel_position_ echo esc_attr(newlife_church_get_custom_option(top_panel_position)); ?<br/>
+<br/>
+ if (newlife_church_get_custom_option(show_top_panel_top)==yes) { ?<br/>
+div class=top_panel_top<br/>
+div class=content_wrap clearfix<br/>
+<br/>
+newlife_church_template_set_args(toppaneltop, array(<br/>
+top_panel_top_components = array(contact_info, search, login, socials, currency, bookmarks)<br/>
+));<br/>
+get_template_part(newlife_church_get_file_slug(templates/headers/_parts/toppaneltop.php));<br/>
+?<br/>
+/div<br/>
+/div<br/>
+ } ?<br/>
+<br/>
+div class=top_panel_middle  newlife_church_show_layout($header_css); ?<br/>
+div class=content_wrap<br/>
+div class=contact_logo<br/>
+ newlife_church_show_logo(true, true); ?<br/>
+/div<br/>
+div class=menu_main_wrap<br/>
+nav class=menu_main_nav_area<br/>
+<br/>
+$menu_main = newlife_church_get_nav_menu(menu_main);<br/>
+if (empty($menu_main)) $menu_main = newlife_church_get_nav_menu();<br/>
+newlife_church_show_layout($menu_main);<br/>
+?<br/>
+/nav<br/>
+/div<br/>
+/div<br/>
+/div<br/>
+<br/>
+/div<br/>
+/header<br/>
+<br/>
+<br/>
+newlife_church_storage_set(header_mobile, array(<br/>
+ open_hours = false,<br/>
+ login = true,<br/>
+ socials = true,<br/>
+ bookmarks = true,<br/>
+ contact_address = false,<br/>
+ contact_phone_email = false,<br/>
+ woo_cart = false,<br/>
+ search = true<br/>
+)<br/>
+);<br/>
+}<br/>
+}<br/>
+?</body></html>

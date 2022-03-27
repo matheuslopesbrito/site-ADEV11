@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;?php<br/>
+if ($video_bg_show) {<br/>
+    $youtube = newlife_church_get_custom_option(&#39;video_bg_youtube_code&#39;);<br/>
+    $video   = newlife_church_get_custom_option(&#39;video_bg_url&#39;);<br/>
+    $overlay = newlife_church_get_custom_option(&#39;video_bg_overlay&#39;)==&#39;yes&#39;;<br/>
+    if (!empty($youtube)) {<br/>
+        ?&gt;<br/>
+        &lt;div class=&quot;video_bg&lt;?php echo !empty($overlay) ? &#39; video_bg_overlay&#39; : &#39;&#39;; ?&gt;&quot; data&ndash;youtube&ndash;code=&quot;&lt;?php echo esc_attr($youtube); ?&gt;&quot;&gt;&lt;/div&gt;<br/>
+    &lt;?php<br/>
+    } else if (!empty($video)) {<br/>
+        $info = pathinfo($video);<br/>
+        $ext = !empty($info[&#39;extension&#39;]) ? $info[&#39;extension&#39;] : &#39;src&#39;;<br/>
+        ?&gt;<br/>
+        &lt;div class=&quot;video_bg&lt;?php echo !empty($overlay) ? &#39; video_bg_overlay&#39; : &#39;&#39;; ?&gt;&quot;&gt;&lt;video class=&quot;video_bg_tag&quot; width=&quot;1280&quot; height=&quot;720&quot; data&ndash;width=&quot;1280&quot; data&ndash;height=&quot;720&quot; data&ndash;ratio=&quot;16:9&quot; preload=&quot;metadata&quot; autoplay loop src=&quot;&lt;?php echo esc_url($video); ?&gt;&quot;&gt;&lt;source src=&quot;&lt;?php echo esc_url($video); ?&gt;&quot; type=&quot;video/&lt;?php echo esc_attr($ext); ?&gt;&quot;&gt;&lt;/source&gt;&lt;/video&gt;&lt;/div&gt;<br/>
+    &lt;?php<br/>
+    }<br/>
+}</body></html>

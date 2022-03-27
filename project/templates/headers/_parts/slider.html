@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;?php<br/>
+if (newlife_church_get_custom_option(&#39;show_slider&#39;)==&#39;yes&#39; &amp;&amp; function_exists(&#39;newlife_church_sc_slider&#39;)) { <br/>
+&nbsp;&nbsp;&nbsp;$slider = newlife_church_get_custom_option(&#39;slider_engine&#39;);<br/>
+&nbsp;&nbsp;&nbsp;$slider_alias = $slider_ids = $slider_html = &#39;&#39;;<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if ($slider == &#39;revo&#39; &amp;&amp; function_exists(&#39;newlife_church_exists_revslider&#39;) &amp;&amp; newlife_church_exists_revslider()) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_alias = newlife_church_get_custom_option(&#39;slider_alias&#39;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!empty($slider_alias)) $slider_html = newlife_church_do_shortcode(&#39;[rev_slider &#39;.esc_attr($slider_alias).&#39;]&#39;);<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;} else if ($slider == &#39;royal&#39; &amp;&amp; function_exists(&#39;newlife_church_exists_royalslider&#39;) &amp;&amp; newlife_church_exists_royalslider()) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_alias = get_new_royalslider($slider_alias);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!empty($slider_alias)) $slider_html = newlife_church_do_shortcode(&#39;[rev_slider &#39;.esc_attr($slider_alias).&#39;]&#39;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wp_enqueue_style(  &#39;new&ndash;royalslider&ndash;core&ndash;css&#39;, NEW_ROYALSLIDER_PLUGIN_URL . &#39;lib/royalslider/royalslider.css&#39;, array(), null );<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wp_enqueue_script( &#39;new&ndash;royalslider&ndash;main&ndash;js&#39;, NEW_ROYALSLIDER_PLUGIN_URL . &#39;lib/royalslider/jquery.royalslider.min.js&#39;, array(&#39;jquery&#39;), NEW_ROYALSLIDER_WP_VERSION, true );<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;} else if ($slider == &#39;swiper&#39;) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_pagination = newlife_church_get_custom_option(&quot;slider_pagination&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_alias = newlife_church_get_custom_option(&quot;slider_category&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_orderby = newlife_church_get_custom_option(&quot;slider_orderby&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_order = newlife_church_get_custom_option(&quot;slider_order&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_count = $slider_ids = newlife_church_get_custom_option(&quot;slider_posts&quot;);<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (newlife_church_strpos($slider_ids, &#39;,&#39;)!==false) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_alias = &#39;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_count = 0;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_ids = &#39;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (empty($slider_count)) $slider_count = 3;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_interval = newlife_church_get_custom_option(&quot;slider_interval&quot;);<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_count &gt; 0 || !empty($slider_ids)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$args = array(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;custom&#39;	=&gt; &quot;no&quot;,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;crop&#39;		=&gt; &quot;no&quot;,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;controls&#39;	=&gt; &quot;no&quot;,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;engine&#39;	=&gt; $slider,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;height&#39;	=&gt; max(100, newlife_church_get_custom_option(&#39;slider_height&#39;)),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;titles&#39;	=&gt; newlife_church_get_custom_option(&quot;slider_infobox&quot;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_interval)	$args[&#39;interval&#39;] = $slider_interval;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_alias)		$args[&#39;cat&#39;] = $slider_alias;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_ids)		$args[&#39;ids&#39;] = $slider_ids;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_count)		$args[&#39;count&#39;] = $slider_count;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_orderby)	$args[&#39;orderby&#39;] = $slider_orderby;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_order)		$args[&#39;order&#39;] = $slider_order;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($slider_pagination)	$args[&#39;pagination&#39;] = $slider_pagination;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$slider_html = newlife_church_sc_slider($args);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;// if slider selected<br/>
+&nbsp;&nbsp;&nbsp;if (!empty($slider_html)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;section class=&quot;slider_wrap slider_&lt;?php echo esc_attr(newlife_church_get_custom_option(&#39;slider_display&#39;)); ?&gt; slider_engine_&lt;?php echo esc_attr($slider); ?&gt; slider_alias_&lt;?php echo esc_attr($slider_alias); ?&gt;&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php newlife_church_show_layout($slider_html); ?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/section&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newlife_church_profiler_add_point(esc_html__(&#39;After show slider&#39;, &#39;newlife&ndash;church&#39;));<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+}<br/>
+?&gt;</body></html>

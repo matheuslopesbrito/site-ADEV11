@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;?php<br/>
+$cart_items = WC()&ndash;&gt;cart&ndash;&gt;get_cart_contents_count();<br/>
+$cart_summa = strip_tags(WC()&ndash;&gt;cart&ndash;&gt;get_cart_subtotal());<br/>
+?&gt;<br/>
+&lt;a href=&quot;#&quot; class=&quot;top_panel_cart_button&quot; data&ndash;items=&quot;&lt;?php echo esc_attr($cart_items); ?&gt;&quot; data&ndash;summa=&quot;&lt;?php echo esc_attr($cart_summa); ?&gt;&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;contact_icon icon&ndash;basket&quot;&gt;&lt;/span&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;contact_label contact_cart_label&quot;&gt;&lt;?php esc_html_e(&#39;Your cart:&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/span&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;contact_cart_totals&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class=&quot;cart_items&quot;&gt;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo esc_html($cart_items) . &#39; &#39; . ($cart_items == 1 ? esc_html__(&#39;Item&#39;, &#39;newlife&ndash;church&#39;) : esc_html__(&#39;Items&#39;, &#39;newlife&ndash;church&#39;));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;&lt;/span&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&ndash; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class=&quot;cart_summa&quot;&gt;&lt;?php newlife_church_show_layout($cart_summa); ?&gt;&lt;/span&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;/span&gt;<br/>
+&lt;/a&gt;<br/>
+&lt;ul class=&quot;widget_area sidebar_cart sidebar&quot;&gt;&lt;li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;do_action( &#39;before_sidebar&#39; );<br/>
+&nbsp;&nbsp;&nbsp;newlife_church_storage_set(&#39;current_sidebar&#39;, &#39;cart&#39;);<br/>
+&nbsp;&nbsp;&nbsp;if ( !dynamic_sidebar( &#39;sidebar&ndash;cart&#39; ) ) { <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the_widget( &#39;WC_Widget_Cart&#39;, &#39;title=&amp;hide_if_empty=1&#39; );<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&lt;/li&gt;&lt;/ul&gt;</body></html>

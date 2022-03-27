@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;?php <br/>
+// Get template args<br/>
+extract(newlife_church_template_get_args(&#39;top&ndash;panel&ndash;top&#39;));<br/>
+<br/>
+if (in_array(&#39;contact_info&#39;, $top_panel_top_components) &amp;&amp; ($contact_info=trim(newlife_church_get_custom_option(&#39;contact_info&#39;)))!=&#39;&#39;) {<br/>
+&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;div class=&quot;top_panel_top_contact_area&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php newlife_church_show_layout($contact_info); ?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+}<br/>
+?&gt;<br/>
+<br/>
+&lt;?php<br/>
+if (in_array(&#39;open_hours&#39;, $top_panel_top_components) &amp;&amp; ($open_hours=trim(newlife_church_get_custom_option(&#39;contact_open_hours&#39;)))!=&#39;&#39;) {<br/>
+&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;div class=&quot;top_panel_top_open_hours icon&ndash;clock&quot;&gt;&lt;?php newlife_church_show_layout($open_hours); ?&gt;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+}<br/>
+?&gt;<br/>
+<br/>
+&lt;div class=&quot;top_panel_top_user_area&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;$menu_user = newlife_church_get_nav_menu(&#39;menu_user&#39;);<br/>
+&nbsp;&nbsp;&nbsp;if (empty($menu_user)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul id=&quot;menu_user&quot; class=&quot;menu_user_nav&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;} else {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$menu = newlife_church_substr($menu_user, 0, newlife_church_strlen($menu_user)&ndash;5);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$pos = newlife_church_strpos($menu, &#39;&lt;ul&#39;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($pos!==false) $menu = newlife_church_substr($menu, 0, $pos+3) . &#39; class=&quot;menu_user_nav&quot;&#39; . newlife_church_substr($menu, $pos+3);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo str_replace(&#39;class=&quot;&quot;&#39;, &#39;&#39;, $menu);<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if (in_array(&#39;currency&#39;, $top_panel_top_components) &amp;&amp; function_exists(&#39;newlife_church_is_woocommerce_page&#39;) &amp;&amp; newlife_church_is_woocommerce_page() &amp;&amp; newlife_church_get_custom_option(&#39;show_currency&#39;)==&#39;yes&#39;) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_currency&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;$&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;b&gt;&amp;#36;&lt;/b&gt; &lt;?php esc_html_e(&#39;Dollar&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;b&gt;&amp;euro;&lt;/b&gt; &lt;?php esc_html_e(&#39;Euro&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;b&gt;&amp;pound;&lt;/b&gt; &lt;?php esc_html_e(&#39;Pounds&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if (in_array(&#39;language&#39;, $top_panel_top_components) &amp;&amp; newlife_church_get_custom_option(&#39;show_languages&#39;)==&#39;yes&#39; &amp;&amp; function_exists(&#39;icl_get_languages&#39;)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$languages = icl_get_languages(&#39;skip_missing=1&#39;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!empty($languages) &amp;&amp; is_array($languages)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$lang_list = &#39;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$lang_active = &#39;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach ($languages as $lang) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$lang_title = esc_attr($lang[&#39;translated_name&#39;]);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($lang[&#39;active&#39;]) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$lang_active = $lang_title;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$lang_list .= &quot;\n&quot;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&#39;&lt;li&gt;&lt;a rel=&quot;alternate&quot; hreflang=&quot;&#39; . esc_attr($lang[&#39;language_code&#39;]) . &#39;&quot; href=&quot;&#39; . esc_url(apply_filters(&#39;WPML_filter_link&#39;, $lang[&#39;url&#39;], $lang)) . &#39;&quot;&gt;&#39;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&#39;&lt;img src=&quot;&#39; . esc_url($lang[&#39;country_flag_url&#39;]) . &#39;&quot; alt=&quot;&#39; . esc_attr($lang_title) . &#39;&quot; title=&quot;&#39; . esc_attr($lang_title) . &#39;&quot; /&gt;&#39;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;. ($lang_title)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&#39;&lt;/a&gt;&lt;/li&gt;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_language&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;&lt;span&gt;&lt;?php newlife_church_show_layout($lang_active); ?&gt;&lt;/span&gt;&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;&lt;?php newlife_church_show_layout($lang_list); ?&gt;&lt;/ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if (in_array(&#39;bookmarks&#39;, $top_panel_top_components) &amp;&amp; newlife_church_get_custom_option(&#39;show_bookmarks&#39;)==&#39;yes&#39;) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Load core messages<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newlife_church_enqueue_messages();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_bookmarks&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;bookmarks_show icon&ndash;star&quot; title=&quot;&lt;?php esc_attr_e(&#39;Show bookmarks&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&quot;&gt;&lt;?php esc_html_e(&#39;Bookmarks&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$list = newlife_church_get_value_gpc(&#39;newlife_church_bookmarks&#39;, &#39;&#39;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!empty($list)) $list = json_decode($list, true);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul class=&quot;bookmarks_list&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;bookmarks_add icon&ndash;star&ndash;empty&quot; title=&quot;&lt;?php esc_attr_e(&#39;Add the current page into bookmarks&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&quot;&gt;&lt;?php esc_html_e(&#39;Add bookmark&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!empty($list) &amp;&amp; is_array($list)) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach ($list as $bm) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo &#39;&lt;li&gt;&lt;a href=&quot;&#39;.esc_url($bm[&#39;url&#39;]).&#39;&quot; class=&quot;bookmarks_item&quot;&gt;&#39;.($bm[&#39;title&#39;]).&#39;&lt;span class=&quot;bookmarks_delete icon&ndash;cancel&quot; title=&quot;&#39;.esc_attr__(&#39;Delete this bookmark&#39;, &#39;newlife&ndash;church&#39;).&#39;&quot;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if (in_array(&#39;login&#39;, $top_panel_top_components) &amp;&amp; newlife_church_get_custom_option(&#39;show_login&#39;)==&#39;yes&#39;) {<br/>
+        if ( !is_user_logged_in() ) {<br/>
+            // Load core messages<br/>
+            newlife_church_enqueue_messages();<br/>
+            // Load Popup engine<br/>
+            newlife_church_enqueue_popup();<br/>
+            // Anyone can register ?<br/>
+            if ( (int) get_option(&#39;users_can_register&#39;) &gt; 0) {<br/>
+                ?&gt;&lt;li class=&quot;menu_user_register&quot;&gt;&lt;?php do_action(&#39;trx_utils_action_register&#39;); ?&gt;&lt;/li&gt;&lt;?php<br/>
+            }<br/>
+            ?&gt;&lt;li class=&quot;menu_user_login&quot;&gt;&lt;?php do_action(&#39;trx_utils_action_login&#39;); ?&gt;&lt;/li&gt;&lt;?php<br/>
+        } else {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$current_user = wp_get_current_user();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_controls&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$user_avatar = &#39;&#39;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$mult = newlife_church_get_retina_multiplier();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($current_user&ndash;&gt;user_email) $user_avatar = get_avatar($current_user&ndash;&gt;user_email, 16*$mult);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($user_avatar) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;&lt;span class=&quot;user_avatar&quot;&gt;&lt;?php newlife_church_show_layout($user_avatar); ?&gt;&lt;/span&gt;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}?&gt;&lt;span class=&quot;user_name&quot;&gt;&lt;?php newlife_church_show_layout($current_user&ndash;&gt;display_name); ?&gt;&lt;/span&gt;&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php if (current_user_can(&#39;publish_posts&#39;)) { ?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;&lt;?php echo esc_url(home_url(&#39;/&#39;)); ?&gt;/wp&ndash;admin/post&ndash;new.php?post_type=post&quot; class=&quot;icon icon&ndash;doc&quot;&gt;&lt;?php esc_html_e(&#39;New post&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php } ?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;&lt;?php echo esc_url(get_edit_user_link()); ?&gt;&quot; class=&quot;icon icon&ndash;cog&quot;&gt;&lt;?php esc_html_e(&#39;Settings&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_logout&quot;&gt;&lt;a href=&quot;&lt;?php echo esc_url(wp_logout_url(home_url(&#39;/&#39;))); ?&gt;&quot; class=&quot;icon icon&ndash;logout&quot;&gt;&lt;?php esc_html_e(&#39;Logout&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;if (in_array(&#39;cart&#39;, $top_panel_top_components) &amp;&amp; function_exists(&#39;newlife_church_exists_woocommerce&#39;) &amp;&amp; newlife_church_exists_woocommerce() &amp;&amp; (newlife_church_is_woocommerce_page() &amp;&amp; newlife_church_get_custom_option(&#39;show_cart&#39;)==&#39;shop&#39; || newlife_church_get_custom_option(&#39;show_cart&#39;)==&#39;always&#39;) &amp;&amp; !(is_checkout() || is_cart() || defined(&#39;WOOCOMMERCE_CHECKOUT&#39;) || defined(&#39;WOOCOMMERCE_CART&#39;))) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class=&quot;menu_user_cart&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php get_template_part(newlife_church_get_file_slug(&#39;templates/headers/_parts/contact&ndash;info&ndash;cart.php&#39;)); ?&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php<br/>
+&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;&nbsp;?&gt;<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br/>
+<br/>
+    &lt;?php<br/>
+    if (in_array(&#39;socials&#39;, $top_panel_top_components) &amp;&amp; newlife_church_get_custom_option(&#39;show_socials&#39;)==&#39;yes&#39; &amp;&amp; function_exists(&#39;newlife_church_sc_socials&#39;)) {<br/>
+        ?&gt;<br/>
+        &lt;div class=&quot;top_panel_top_socials&quot;&gt;<br/>
+            &lt;?php newlife_church_show_layout(newlife_church_sc_socials(array(&#39;size&#39;=&gt;&#39;tiny&#39;))); ?&gt;<br/>
+        &lt;/div&gt;<br/>
+    &lt;?php<br/>
+    }<br/>
+<br/>
+    if (in_array(&#39;search&#39;, $top_panel_top_components) &amp;&amp; newlife_church_get_custom_option(&#39;show_search&#39;)==&#39;yes&#39; &amp;&amp; function_exists(&#39;newlife_church_sc_search&#39;)) {<br/>
+        ?&gt;<br/>
+        &lt;div class=&quot;top_panel_top_search&quot;&gt;&lt;?php newlife_church_show_layout(newlife_church_sc_search(array(&#39;state&#39;=&gt;&#39;closed&#39;))); ?&gt;&lt;/div&gt;<br/>
+    &lt;?php<br/>
+    }<br/>
+    ?&gt;<br/>
+<br/>
+&lt;/div&gt;</body></html>

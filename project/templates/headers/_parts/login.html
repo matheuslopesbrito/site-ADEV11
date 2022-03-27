@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;div id=&quot;popup_login&quot; class=&quot;popup_wrap popup_login bg_tint_light&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot; class=&quot;popup_close&quot;&gt;&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;div class=&quot;form_wrap&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;form_left&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;form action=&quot;&lt;?php echo wp_login_url(); ?&gt;&quot; method=&quot;post&quot; name=&quot;login_form&quot; class=&quot;popup_form login_form&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;hidden&quot; name=&quot;redirect_to&quot; value=&quot;&lt;?php echo esc_url(home_url(&#39;/&#39;)); ?&gt;&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;popup_form_field login_field iconed_field icon&ndash;user&quot;&gt;&lt;input type=&quot;text&quot; id=&quot;log&quot; name=&quot;log&quot; value=&quot;&quot; placeholder=&quot;&lt;?php esc_attr_e(&#39;Login or Email&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&quot;&gt;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;popup_form_field password_field iconed_field icon&ndash;lock&quot;&gt;&lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;pwd&quot; value=&quot;&quot; placeholder=&quot;&lt;?php esc_attr_e(&#39;Password&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&quot;&gt;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;popup_form_field remember_field&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href=&quot;&lt;?php echo esc_url(wp_lostpassword_url(get_permalink())); ?&gt;&quot; class=&quot;forgot_password&quot;&gt;&lt;?php esc_html_e(&#39;Forgot password?&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;checkbox&quot; value=&quot;forever&quot; id=&quot;rememberme&quot; name=&quot;rememberme&quot;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label for=&quot;rememberme&quot;&gt;&lt;?php esc_html_e(&#39;Remember me&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/label&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;popup_form_field submit_field&quot;&gt;&lt;input type=&quot;submit&quot; class=&quot;submit_button&quot; value=&quot;&lt;?php esc_attr_e(&#39;Login&#39;, &#39;newlife&ndash;church&#39;); ?&gt;&quot;&gt;&lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/form&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/>
+        &lt;div class=&quot;form_right&quot;&gt;<br/>
+            &lt;div class=&quot;login_socials_title&quot;&gt;&lt;?php esc_html_e(&#39;You can login using your social profile&#39;, &#39;newlife&ndash;church&#39; ); ?&gt;&lt;/div&gt;<br/>
+            &lt;?php<br/>
+            $social_login = str_replace(&#39;[&#39;, &#39;&#39;, newlife_church_get_theme_option(&#39;social_login&#39;));<br/>
+            $social_login = str_replace(&#39;]&#39;, &#39;&#39;, $social_login);<br/>
+            if (strlen($social_login) &gt; 0) {<br/>
+                ?&gt;<br/>
+                &lt;div class=&quot;loginSoc login_plugin&quot;&gt;<br/>
+                    &lt;?php<br/>
+                    if (strlen($social_login) &gt; 0) echo do_shortcode( &#39;[&#39; . $social_login . &#39;]&#39; );<br/>
+                    ?&gt;<br/>
+                &lt;/div&gt;<br/>
+            &lt;?php } else {?&gt;<br/>
+                &lt;div&gt;&lt;?php esc_html_e(&quot;Install social plugin that has it&#39;s own SHORTCODE and add it to Theme Options &ndash; Socials &ndash; &#39;Login via Social network&#39; field. We recommend: Wordpress Social Login&quot;, &#39;newlife&ndash;church&#39;); ?&gt;&lt;/div&gt;<br/>
+            &lt;?php }?&gt;<br/>
+            &lt;div class=&quot;result message_block&quot;&gt;&lt;/div&gt;<br/>
+        &lt;/div&gt;<br/>
+&nbsp;&nbsp;&nbsp;&lt;/div&gt;	&lt;!&ndash;&ndash; /.login_wrap &ndash;&ndash;&gt;<br/>
+&lt;/div&gt;		&lt;!&ndash;&ndash; /.popup_login &ndash;&ndash;&gt;</body></html>

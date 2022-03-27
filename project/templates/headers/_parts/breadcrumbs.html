@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+</head>
+<body>
+&lt;?php<br/>
+<br/>
+$show_title = newlife_church_get_custom_option(&#39;show_page_title&#39;)==&#39;yes&#39;;<br/>
+$show_navi = $show_title &amp;&amp; is_single() &amp;&amp; newlife_church_is_woocommerce_page();<br/>
+$show_breadcrumbs = newlife_church_get_custom_option(&#39;show_breadcrumbs&#39;)==&#39;yes&#39;;<br/>
+if (($show_title || $show_breadcrumbs) &amp;&amp; !(is_front_page() &amp;&amp; is_home())) {<br/>
+    // Get custom image (for blog) or featured image (for single)<br/>
+    $header_css = &#39;&#39;;<br/>
+    if(newlife_church_get_custom_option(&#39;show_top_panel_image&#39;)==&#39;yes&#39;) {<br/>
+        $header_image =&#39;&#39;;<br/>
+        $header_image_attachment = false;<br/>
+        if ($header_image_attachment &amp;&amp; is_singular()) {<br/>
+            $post_id = get_the_ID();<br/>
+            $post_format = get_post_format();<br/>
+            $post_icon = &#39;&#39;;<br/>
+            $header_image = wp_get_attachment_url(get_post_thumbnail_id($post_id));<br/>
+        }<br/>
+        if (empty($header_image))<br/>
+            $header_image = newlife_church_get_custom_option(&#39;top_panel_image&#39;);<br/>
+        if (empty($header_image))<br/>
+            $header_image = get_header_image();<br/>
+        if (!empty($header_image)) {<br/>
+            $header_css = &#39; style=&quot;background&ndash;image: url(&#39; . esc_url($header_image) . &#39;)&quot;&#39;;<br/>
+        }<br/>
+    }<br/>
+    ?&gt;<br/>
+<br/>
+    &lt;div class=&quot;top_panel_title top_panel_style_&lt;?php echo esc_attr(str_replace(&#39;header_&#39;, &#39;&#39;, $top_panel_style)); ?&gt; &lt;?php echo (!empty($show_title) ? &#39; title_present&#39;.  ($show_navi ? &#39; navi_present&#39; : &#39;&#39;) : &#39;&#39;) . (!empty($show_breadcrumbs) ? &#39; breadcrumbs_present&#39; : &#39;&#39;); ?&gt; scheme_&lt;?php echo esc_attr($top_panel_scheme); ?&gt;&quot;&gt;<br/>
+        &lt;div class=&quot;top_panel_title_inner top_panel_inner_style_&lt;?php echo esc_attr(str_replace(&#39;header_&#39;, &#39;&#39;, $top_panel_style)); ?&gt; &lt;?php echo (!empty($show_title) ? &#39; title_present_inner&#39; : &#39;&#39;) . (!empty($show_breadcrumbs) ? &#39; breadcrumbs_present_inner&#39; : &#39;&#39;); ?&gt;&quot; &lt;?php newlife_church_show_layout($header_css); ?&gt;&gt;<br/>
+<br/>
+            &lt;div class=&quot;content_wrap&quot;&gt;<br/>
+                &lt;?php<br/>
+                if ($show_title) {<br/>
+                    if ($show_navi) {<br/>
+                        ?&gt;&lt;div class=&quot;post_navi&quot;&gt;&lt;?php<br/>
+                        previous_post_link( &#39;&lt;span class=&quot;post_navi_item post_navi_prev&quot;&gt;%link&lt;/span&gt;&#39;, &#39;%title&#39;, true, &#39;&#39;, &#39;product_cat&#39; );<br/>
+                        next_post_link( &#39;&lt;span class=&quot;post_navi_item post_navi_next&quot;&gt;%link&lt;/span&gt;&#39;, &#39;%title&#39;, true, &#39;&#39;, &#39;product_cat&#39; );<br/>
+                        ?&gt;&lt;/div&gt;&lt;?php<br/>
+                    } else {<br/>
+                        ?&gt;&lt;h1 class=&quot;page_title&quot;&gt;&lt;?php echo wp_kses_post(newlife_church_get_blog_title()); ?&gt;&lt;/h1&gt;&lt;?php<br/>
+                    }<br/>
+                }<br/>
+                if ($show_breadcrumbs) {<br/>
+                    ?&gt;&lt;div class=&quot;breadcrumbs&quot;&gt;&lt;?php if (!is_404()) newlife_church_show_breadcrumbs(); ?&gt;&lt;/div&gt;&lt;?php<br/>
+                }<br/>
+                ?&gt;<br/>
+            &lt;/div&gt;<br/>
+        &lt;/div&gt;<br/>
+    &lt;/div&gt;<br/>
+&lt;?php<br/>
+}</body></html>
